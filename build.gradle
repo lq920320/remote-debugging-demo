@@ -1,0 +1,36 @@
+buildscript {
+  ext {
+    springBootVersion = '2.0.3.RELEASE'
+  }
+  repositories {
+    maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+  }
+  dependencies {
+    classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+  }
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+
+group 'remote-dubugging'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+  maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+}
+
+dependencies {
+  compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
+    {
+      exclude group: "org.springframework.boot", module: "spring-boot-starter-tomcat"
+    }
+  compile group: "org.springframework.boot", name: "spring-boot-starter-undertow", version: "${springBootVersion}"
+  compile group: "org.springframework.boot", name: "spring-boot-starter-logging", version: "${springBootVersion}"
+  compile group: "org.springframework.boot", name: "spring-boot-starter-actuator", version: "${springBootVersion}"
+  compile group: "org.springframework.boot", name: "spring-boot-starter-aop", version: "${springBootVersion}"
+  testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+}
