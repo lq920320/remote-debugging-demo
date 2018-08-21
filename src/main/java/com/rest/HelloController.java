@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @author myzd
+ * @author liuqian
  */
 @RestController("/hello")
 public class HelloController {

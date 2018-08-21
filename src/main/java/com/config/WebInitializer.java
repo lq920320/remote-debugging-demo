@@ -5,7 +5,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 /**
- * @author myzd
+ * @author liuqian
  */
 public class WebInitializer extends SpringBootServletInitializer {
   @Override
