@@ -2,10 +2,10 @@
 
 需要设置的JVM的参数：
 ```
--Xdebug -Xrunjdwp:transport=dt_socket,address=8888,server=y,suspend=n
+-Xdebug -Xrunjdwp:transport=dt_socket,address=*:5005,server=y,suspend=n
 ```
 
-参数解析：
+### 参数解析：
 - `-Xdebug` 是通知JVM工作在DEBUG模式下；
 - `-Xrunjdwp` 是通知JVM使用(java debug wire protocol, Java调试线协议)来运行调试环境；
 - `transport` 指定了调试数据的传送方式；
@@ -16,7 +16,7 @@
 - `suspend` 指明，是否在调试客户端建立起来后，再执行JVM；
 - `onuncaught`(=y或n) 指明出现uncaught exception 后，是否中断JVM的执行。
 
-虚拟机参数设置        
+### 虚拟机参数设置        
 1．启用调试服务    
 　`-Xdebug` 启用调试         
 　`-Xrunjdwp` 加载JVM的JPDA参考实现库 
@@ -25,7 +25,7 @@
 　`Xrunjdwp`子参数的配置格式如下    
 　`-Xrunjdwp`:[=],[=]…   
 
-**几个例子**
+### 几个例子
  
 `-Xrunjdwp:transport=dt_socket,server=y,address=8000`         
 　　在8000端口监听Socket连接，挂起VM并且不加载运行主函数直到调试请求到达
@@ -45,8 +45,7 @@
 `-Xrunjdwp:transport=dt_shmem,server=y,onuncaught=y,launch=d:\bin\debugstub.exe`        
 等待一个RuntimeException被抛出，然后挂起VM并监听一个可用的共享内存，在接到调试请求后以命令d:\bin\debugstub.exe dt_shmem执行,是可用的共享内存
 
-
-Java远程调试        
+### Java远程调试        
 `-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,address=5005,suspend=n`        
 - `-XDebug` 启用调试。 
 - `-Xnoagent` 禁用默认sun.tools.debug调试器。 
@@ -59,5 +58,37 @@ Java远程调试
 - `address=5005` 调试服务器的端口号，客户端用来连接服务器的端口号。 
 - `suspend=y/n` 是否在调试客户端建立连接之后启动 VM 。 
 
+### 如何用Intellij-IDEA进行java项目的远程调试
 
-参考： https://blog.csdn.net/benben683280/article/details/78716397
+步骤如下：         
+1. 配置应用进入debug模式，在启动项目时加入虚拟机参数，或者配置"_JAVA_OPTIONS"                  
+“-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=*:5005”：
+
+<img src='src/images/000.png' />
+
+注意`address`的写法，自从Java9.0以来，JDWP默认只支持到本地，即如果你写成`address=5005`，那么只能在本地进行调试，并不能连接到远程(http://www.oracle.com/technetwork/java/javase/9-notes-3745703.html#JDK-8041435)。
+
+若要远程进行调试则应该在`address`这一参数之前增加`*:`:
+```
+-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=*:5005
+```
+
+2. Run -> Edit Configurations...进入添加启动项页面：
+<img src='src/images/111.png' />
+
+3. 如果你的启动项中没有点击 "+" ，选择"Remote"添加，自定义一个名字（比如我命名为"remote"）：
+<img src='src/images/222.png' />
+
+4. 点击 "OK" 保存：
+<img src='src/images/333.png' />
+
+5. 点击 "debug" 图标，启动调试：
+<img src='src/images/444.png' />
+
+6. 给项目打上断点，就能像在本地一样调试远程项目了：
+<img src='src/images/555.png' />
+
+### 参考
+1. https://stackoverflow.com/questions/21114066/attach-intellij-idea-debugger-to-a-running-java-process
+1. https://stackoverflow.com/questions/138511/what-are-java-command-line-options-to-set-to-allow-jvm-to-be-remotely-debugged
+1. https://blog.csdn.net/benben683280/article/details/78716397
