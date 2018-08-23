@@ -79,7 +79,7 @@
 3. 如果你的启动项中没有点击 "+" ，选择"Remote"添加，自定义一个名字（比如我命名为"remote"）：
 <img src='src/images/222.png' />
 
-4. 点击 "OK" 保存：
+4. 配置好你的 HostIp，以及开启的调试端口，点击 "OK" 保存：
 <img src='src/images/333.png' />
 
 5. 点击 "debug" 图标，启动调试：
