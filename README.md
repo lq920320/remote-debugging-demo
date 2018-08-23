@@ -1,6 +1,6 @@
 ## remote-debugging-demo
 
-访问地址：http://127.0.0.1:8080/remote-debugging/api/v1/hello?name=
+本地启动项目之后，访问地址：http://127.0.0.1:8080/remote-debugging/api/v1/hello?name= .
 
 需要设置的JVM的参数：
 ```
