@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @author liuqian
  */
-@RestController("/hello")
+@RestController("/api/v1/hello")
 public class HelloController {
 
   @GetMapping
