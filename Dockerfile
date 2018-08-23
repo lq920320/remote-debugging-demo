@@ -1,4 +1,4 @@
-FROM gradle:slim as build
+FROM gradle:4.9.0 as build
 
 COPY . /srv
 RUN cd /srv && gradle --no-daemon build
